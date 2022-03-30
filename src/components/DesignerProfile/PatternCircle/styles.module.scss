@@ -1,0 +1,38 @@
+.patternCircle {
+  width: 18.5vw;
+  height: 18.5vw;
+  position: relative;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    z-index: 3;
+  }
+
+  &.secondPart {
+    margin-right: 10vw;
+    margin-bottom: 10vw;
+  }
+}
+
+.patternCircleViewer {
+  z-index: 0;
+  width: 30vw !important;
+  height: 30vw !important;
+
+  &.Right {
+    left: 20vw !important;
+  }
+
+  &.Left {
+    left: -32vw !important;
+  }
+
+  .description {
+    height: 30% !important;
+  }
+  display: block;
+}

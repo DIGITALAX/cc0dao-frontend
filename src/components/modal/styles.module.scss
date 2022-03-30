@@ -1,0 +1,110 @@
+@import '../../assets/scss/helpers/helpers.scss';
+
+.wrapper {
+  background-color: rgba(0,0,0,0.2);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  z-index: 130;
+  font-family: "Inter";
+}
+
+.modal {
+  max-width: 1200px;
+  @media (max-width: 1300px) {
+    width: 90%;
+  }
+  margin: auto;
+  padding: 48px;
+  @media (max-width: 980px) {
+    padding: 0;
+  }
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.content {
+  width: 704px;
+  &.casual {
+    width: 840px;
+  }
+  @media (max-width: 870px) {
+    width: 100%;
+  }
+  position: relative;
+}
+.background_img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.wallets {
+  background: rebeccapurple;
+  // background-image: url("../../../public/images/create_wallet.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  border-radius: 50px;
+  padding: 36px 100px;
+  @media (max-width: 980px) {
+    padding:36px 10%;
+  }
+}
+.corner {
+  background-image: url('../../../public/images/corner.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  bottom: -20px;
+  right: -50px;
+  width: 128px;
+  height: 116px;
+  position: absolute;
+}
+.comment {
+  background-image: url('../../../public/images/comment.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  bottom: -180px;
+  right: -280px;
+  width: 304px;
+  height: 212px;
+  position: absolute;
+}
+
+.closeIcon {
+  @include reset-button(); 
+  @include active(); 
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+
+.title {
+  color: white;
+  font-size: 2rem;
+  line-height: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 44px;
+  text-transform: uppercase;
+}
+
+.modalBodyText {
+  font-size: 1rem;
+  line-height: 24px;
+  font-weight: 400;
+
+  &:not(:last-child) {
+    margin-bottom: 18px;
+  }
+}
+
+

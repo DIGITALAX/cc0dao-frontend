@@ -1,0 +1,60 @@
+.wrapper {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  right: 10px;
+  top: 10px;
+  background-color: RGBA(255, 255, 255, 0.8);
+  z-index: 20;
+  border: 1px solid gray;
+
+  .title {
+    background-color: black;
+    padding: 10px;
+    color: white;
+  }
+
+  .secondRow {
+    display: flex;
+    flex-direction: row;
+
+    .colorButton {
+      margin: 10px;
+      width: 50%;
+      height: 30px;
+      cursor: pointer;
+      // background-color: black;
+    }
+  }
+
+  .fontFamily {
+    font-size: 30px;
+    padding-left: 10px;
+  }
+
+  .fontSize {
+    font-size: 30px;
+    padding-left: 10px;
+    width: 50%;
+  }
+
+  .closeButton {
+    font-size: 20px;
+  }
+
+  .colorPickerWrapper {
+    position: fixed;
+    top: 210px;
+    right: 10px;
+
+    .colorPickerCover {
+      position: fixed;
+      top: 0px;
+      right: 0px;
+      left: 0px;
+      bottom: 0px;
+      background: transparent;
+    }
+  }
+}

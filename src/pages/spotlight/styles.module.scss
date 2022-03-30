@@ -1,0 +1,131 @@
+.wrapper {
+  padding: 7.5vw;
+
+  .title {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 70px;
+    line-height: 85px;
+    background: -webkit-linear-gradient(#db00ff, #2b67f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* identical to box height */
+
+    @media (max-width: 1092px) {
+      font-size: 40px;
+      line-height: 45px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 35px;
+      line-height: 40px;
+    }
+
+    @media (max-width: 576px) {
+      font-size: 30px;
+      line-height: 35px;
+    }
+  }
+
+  .description {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 26px;
+
+    @media (max-width: 1092px) {
+      font-size: 18px;
+      line-height: 20px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+      line-height: 18px;
+    }
+
+    color: #ffffff;
+    margin-top: 2vw;
+    margin-bottom: 5vw;
+  }
+
+  .designersSection {
+    display: grid;
+    gap: 3rem;
+    padding: 3rem 0;
+
+    @media (max-width: 1292px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    @media (min-width: 1292px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .designer {
+      width: 300px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: auto;
+
+      .avatar {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        margin-bottom: 0.5rem;
+      }
+
+      .name {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 25px;
+        text-align: center;
+        margin-bottom: 0.5rem;
+
+        color: #ffffff;
+      }
+
+      .text {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 25px;
+        text-align: center;
+
+        color: #ffffff;
+      }
+
+      .spotlight {
+        background: #3CC95B;
+        border-radius: 7px;
+        padding: 0.5rem;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        cursor: pointer;
+
+        color: #FFFFFF;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+          transition: transform 0.3s ease;
+        }
+      }
+    }
+  }
+}

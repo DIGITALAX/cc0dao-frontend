@@ -1,0 +1,219 @@
+.wrapper {
+  // background: white;
+  position: relative;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  overflow: hidden;
+
+  &.showBackground {
+    background: url(/images/designer-page/web3-fashion-background.png);
+  }
+
+  .web3FashionBack {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    display: none;
+  }
+
+  .triangle2 {
+    right: -10vw;
+    top: -12vw;
+    position: absolute;
+    width: 45vw;
+    z-index: 0;
+  }
+
+  h1 {
+    background: linear-gradient(90deg, #db00ff 4.23%, #2b67f1 105.79%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 5.2vw;
+    line-height: 121%;
+    margin-left: 5vw;
+    z-index: 1;
+    position: relative;
+
+    &.marginBottom {
+      margin-bottom: 5vw;
+    }
+  }
+
+  .web3FashionView {
+    // background: gray;
+    // position: absolute;
+    min-height: 400px;
+    .target {
+      position: absolute;
+      &.showBorder {
+        border: 1px dotted white;
+      }
+
+      &.text {
+        color: white;
+        background: transparent;
+        width: fit-content;
+        font-size: 40px;
+      }
+
+      &.image {
+        // padding: 14%;
+      }
+
+      &.embeded {
+        position: relative;
+        width: fit-content;
+
+        .overlay {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          z-index: 2;
+        }
+
+        .hidden {
+          display: none;
+        }
+
+        iframe {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    margin-bottom: 2.5rem;
+    padding-left: 5vw;
+    z-index: 1;
+    position: relative;
+
+    button {
+      background: #000000;
+      border: 4px solid #2b67f1;
+      color: #2b67f1;
+      min-width: 10vw;
+      margin-right: 1vw;
+      margin-left: 1vw;
+
+      &:hover {
+        background: #4276f1;
+        color: #ccc;
+      }
+    }
+
+    .leftPart {
+    }
+
+    .rightPart {
+      margin-right: 5vw;
+    }
+  }
+
+  .addItem {
+    button.addButton {
+      background: #bcb1ff;
+      border: 4px solid #2b67f1;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 30px;
+      text-align: center;
+
+      color: #2b67f1;
+      width: 200px;
+      padding: 10px 10px;
+      align-self: flex-end;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      margin-right: 0;
+    }
+
+    h1 {
+      margin-left: 0;
+      margin-bottom: 20px;
+      width: fit-content;
+    }
+
+    .addText {
+      display: flex;
+      flex-direction: column;
+      width: 70vw;
+      margin-left: 5vw;
+
+      textarea {
+        width: 100%;
+        height: 20vw;
+        background: #000000;
+        border: 4px solid #2b67f1;
+        color: white;
+        outline: none;
+        padding: 5px;
+      }
+    }
+
+    .addImage {
+      display: flex;
+      flex-direction: column;
+      width: 70vw;
+      margin-left: 5vw;
+      z-index: 1;
+      position: relative;
+    }
+
+    .addVideo {
+      display: flex;
+      flex-direction: column;
+      width: 70vw;
+      margin-left: 5vw;
+      z-index: 1;
+      position: relative;
+
+      .embededVideo {
+        background: #000000;
+        border: 4px solid #2b67f1;
+        color: white;
+        outline: none;
+        padding: 5px;
+      }
+    }
+
+    .uploadButton {
+      text-transform: uppercase;
+      background: #000000;
+      border: 4px solid #2b67f1;
+      color: #2b67f1;
+      box-sizing: border-box;
+      border-radius: 21px;
+      padding: 8px 30px;
+      z-index: 10;
+    }
+
+    .fileName {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 22px;
+      color: #868686;
+      margin-left: 20px;
+      margin-top: 10px;
+      word-wrap: break-word;
+      width: 150px;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,474 @@
+.wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  max-width: 100%;
+  min-height: 100vw;
+
+  .background {
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  .purveyor {
+    position: absolute;
+    left: 30vw;
+    top: 10vw;
+
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 2vw;
+    line-height: 2.1vw;
+    background: -webkit-linear-gradient(#db00ff, #2b67f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .rect1 {
+    position: absolute;
+    width: 80vw;
+    height: 2.76vw;
+    left: 0px;
+    top: 15.24vw;
+
+    background: #1ee4ff;
+  }
+
+  .rect2 {
+    position: absolute;
+    width: 20vw;
+    height: 2.76vw;
+    left: 80vw;
+    top: 15.24vw;
+
+    background: white;
+  }
+
+  .bottomWrapper {
+    display: flex;
+    margin-top: 5vw;
+  }
+
+  .rect3 {
+    position: relative;
+    width: 80vw;
+    height: 2.76vw;
+
+    background: #1ee4ff;
+  }
+
+  .rect4 {
+    position: relative;
+    width: 20vw;
+    height: 2.76vw;
+
+    background: white;
+  }
+
+  .userPhoto {
+    position: absolute;
+    width: 21.5vw;
+    height: 21.5vw;
+    left: 3.9vw;
+    top: 9.8vw;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .blueButton {
+    color: black;
+    background: #1ee4ff;
+    border: 2px solid #1ee4ff;
+    font-family: Modular Amplitude;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 120%;
+    text-align: center;
+  }
+
+  .modPFPButton {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 9vw;
+    top: 35vw;
+  }
+
+  .modPFPButtonSave {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 4vw;
+    top: 35vw;
+  }
+
+  .modPFPButtonCancel {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 15vw;
+    top: 35vw;
+  }
+
+  .modNameButton {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 35vw;
+    top: 37vw;
+    display: none;
+  }
+
+  .claimUsername {
+    position: absolute;
+    width: 11.04vw;
+    height: 10vw;
+    right: 4.74vw;
+    top: 27vw;
+    mix-blend-mode: hard-light;
+    display: none;
+  }
+
+  .designerName {
+    position: absolute;
+    width: 60vw;
+    left: 30vw;
+    top: 20vw;
+
+    font-family: "Modular Amplitude";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 3vw;
+    line-height: 3.5vw;
+
+    letter-spacing: 0.025em;
+
+    color: #1ee4ff;
+
+    &.editing {
+      left: 30vw;
+    }
+  }
+
+  .socialIcons {
+    position: absolute;
+    width: 7vw;
+    padding-left: 2vw;
+    border-left: 4px solid #1ee4ff;
+    left: 75vw;
+    top: 25vw;
+    display: flex;
+    flex-direction: column;
+
+    a {
+      width: 4.3vw;
+      height: 4.3vw;
+      margin-bottom: 2vw;
+
+      &:nth-of-type(3) {
+        margin-right: 4vw;
+      }
+
+      img {
+        transition: 0.3s;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  .inputSocialIcons {
+    position: absolute;
+    padding-left: 2vw;
+    border-left: 4px solid #1ee4ff;
+    width: 25vw;
+    left: 75vw;
+    top: 25vw;
+    display: flex;
+    flex-direction: column;
+
+    .inputRow {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 1vw;
+
+      img {
+        width: 4.3vw;
+        height: 4.3vw;
+        margin-right: 1vw;
+      }
+
+      input {
+        height: 30px;
+        background: black;
+        color: white;
+        border: 2px solid #1ee4ff;
+        outline: none;
+        padding-left: 4px;
+      }
+    }
+
+    .modSocialSave {
+      width: 10vw;
+      height: 3vw;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .designerDescription {
+    position: absolute;
+    width: 38vw;
+    left: 30vw;
+    top: 25vw;
+    z-index: 4;
+
+    font-family: Inter;
+    font-size: 1.8vw;
+    line-height: 130%;
+
+    color: #ffffff;
+
+    transform-origin: 0 0;
+  }
+
+  .editDescription {
+    position: absolute;
+    width: 38vw;
+    height: 38vw;
+    left: 30vw;
+    top: 25vw;
+    z-index: 3;
+
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.8vw;
+    line-height: 130%;
+    background: transparent;
+    border: none;
+    outline: 1px dotted white;
+
+    color: #ffffff;
+  }
+
+  .modDescriptionButton {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 30vw;
+    top: 40vw;
+  }
+
+  .modDescriptionButtonSave {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 30vw;
+    top: 65vw;
+  }
+
+  .modDescriptionButtonCancel {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 42vw;
+    top: 65vw;
+  }
+
+  .arrowImg {
+    width: 12.4vw;
+    height: 10.05vw;
+    margin-left: 2vw;
+    mix-blend-mode: screen;
+  }
+
+  .patternSection {
+    margin-top: 60vw;
+    margin-left: 10vw;
+    position: relative;
+    min-height: 150vw;
+    z-index: 3;
+
+    .patternWrapper {
+      margin-left: -10vw;
+      position: relative;
+      width: 100vw;
+      height: 70vw;
+
+      .selectionGroup {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        img {
+          width: 15vw;
+          height: 15vw;
+          margin-left: 2vw;
+          margin-right: 2vw;
+        }
+      }
+
+      .gamePad {
+        display: flex;
+        justify-content: flex-end;
+
+        img {
+          margin-top: -5vw;
+          width: 20vw;
+          height: 20vw;
+        }
+      }
+    }
+
+    .patternWrapper3 {
+      margin-left: 10vw;
+
+      &.smallPattern {
+        min-height: 90vw;
+      }
+    }
+
+    .patternWrapper4 {
+      display: flex;
+      width: 90vw;
+      flex-wrap: wrap;
+      margin-top: 15vw;
+      align-content: baseline;
+    }
+  }
+
+  .patternWrapper2 {
+    z-index: 2;
+    position: absolute;
+    top: 110vw;
+    right: 0vw;
+    width: 50vw;
+    height: 50vw;
+    overflow: hidden;
+
+    .patternSample1 {
+      position: absolute;
+      top: 9vw;
+      right: 16vw;
+      width: 14vw;
+      height: 14vw;
+      z-index: 2;
+    }
+
+    .patternSample2 {
+      position: absolute;
+      top: 7vw;
+      right: -7vw;
+      width: 25vw;
+      height: 25vw;
+      z-index: 1;
+    }
+
+    .patternSample3 {
+      position: absolute;
+      top: 0vw;
+      right: 11vw;
+      width: 12vw;
+      height: 12vw;
+      z-index: 1;
+    }
+  }
+
+  .ownershipText {
+    position: absolute;
+    width: 59.64vw;
+    height: 14vw;
+    left: 3.8vw;
+    top: 110vw;
+
+    font-family: "THIS FONT IS EMPTY1";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 5.2vw;
+    line-height: 100%;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+
+    background: linear-gradient(180deg, #db00ff 0%, rgba(43, 103, 241, 0) 100%);
+    -webkit-text-stroke: 0.08vw white;
+    transform: rotate(-90deg);
+    transform-origin: 0 0;
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .addMoreButton {
+    position: absolute;
+    width: 18vw;
+    height: 3vw;
+    left: 18vw;
+    top: 110vw;
+    transform: rotate(-90deg);
+    transform-origin: 0 0;
+  }
+
+  .marketplaceSection {
+    position: relative;
+    margin-top: 60vw;
+    z-index: 4;
+
+    h1 {
+      background: #1ee4ff;
+      border-bottom: 5px solid white;
+      color: black;
+      width: fit-content;
+      padding: 1vw;
+      font-family: "Modular Amplitude";
+      font-style: normal;
+      font-weight: 900;
+      font-size: 4vw;
+      line-height: 121%;
+      margin-left: 5vw;
+    }
+
+    .marketplaceItems {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      margin-top: 5vw;
+      row-gap: 5vw;
+
+      a {
+        z-index: 4;
+      }
+    }
+  }
+
+  .submitFormWrapper {
+    position: relative;
+    margin-top: 60vw;
+    width: 95%;
+    margin-left: 5%;
+    z-index: 10;
+
+    h1 {
+      background: #1ee4ff;
+      border-bottom: 5px solid white;
+      color: black;
+      width: fit-content;
+      padding: 1vw;
+      font-family: "Modular Amplitude";
+      font-style: normal;
+      font-weight: 900;
+      font-size: 4vw;
+      line-height: 121%;
+      margin-left: 20px;
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+  }
+}
