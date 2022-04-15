@@ -28,7 +28,7 @@ const QuestionMark = (props) => {
 };
 
 const OnChainFashionSubmitForm = (props) => {
-  const { designerId } = props;
+  const { residentId } = props;
 
   const [itemName, setItemName] = useState("");
   const [itemDescription, setItemDescription] = useState("");
@@ -200,62 +200,11 @@ const OnChainFashionSubmitForm = (props) => {
 
     const user = getUser();
 
-    // mint
-    // const metaJson = {
-    //   name: itemName,
-    //   description: itemDescription,
-    //   external_url: 'http://fashion.digitalax.xyz/',
-    //   attributes: [
-    //     {
-    //       trait_type: 'Designer',
-    //       value: designerId,
-    //     },
-    //     {
-    //       trait_type: 'Type',
-    //       value: itemType,
-    //     },
-    //     {
-    //       trait_type: 'Degree of Exclusivity"',
-    //       value: rarity,
-    //     },
-    //     {
-    //       trait_type: 'SourceFileExt',
-    //       value: getFileExt(sourceFile)
-    //     },
-    //     {
-    //       trait_type: 'SourceFileType',
-    //       value: sourceFile.type
-    //     },
-    //     {
-    //       trait_type: 'RenderedFileExt',
-    //       value: getFileExt(renderFile)
-    //     },
-    //     {
-    //       trait_type: 'Gender',
-    //       value: gender,
-    //     },
-    //     {
-    //       trait_type: 'Style',
-    //       value: itemStyle,
-    //     },
-    //     {
-    //       trait_type: 'Element',
-    //       value: elementType,
-    //     },
-    //   ],
-    // }
-
-    // const url = await UploadToPinata(metaJson, renderFile, sourceFile)
-    // console.log('url: ', url)
-    // if (!url) {
-    //   return
-    // }
-
     // register into fauna
-    const message = await api.registerOnChainFashionItem({
+    const message = await api.registerOnChainCC0Item({
       wallet: user.wallet,
       randomString: user.randomString,
-      designerId,
+      residentId,
       itemName,
       description: itemDescription,
       rarity,

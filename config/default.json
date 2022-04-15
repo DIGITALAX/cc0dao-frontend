@@ -7,12 +7,7 @@
   "IS_PROD": false,
   "SENTRY_DSN": "https://efd721a5be464838a0166fa08f84d7ab@o484615.ingest.sentry.io/5538941",
   "ENVIRONMENT": "",
-  "NETWORKS": [
-    "rinkeby",
-    "mainnet",
-    "mumbai",
-    "matic"
-  ],
+  "NETWORKS": ["rinkeby", "mainnet", "mumbai", "matic"],
   "API_URLS": {
     "mainnet": "https://api.thegraph.com/subgraphs/name/digitalax/digitalax",
     "rinkeby": "https://api.thegraph.com/subgraphs/name/digitalax/digitalaxropsten",

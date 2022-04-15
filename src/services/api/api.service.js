@@ -1,6 +1,9 @@
-import { request } from 'graphql-request';
-import config from '@utils/config';
-import { DEV_HTTP_NETWORK_URL, MATIC_NETWORK_URL } from '@constants/global.constants';
+import { request } from "graphql-request";
+import config from "@utils/config";
+import {
+  DEV_HTTP_NETWORK_URL,
+  MATIC_NETWORK_URL,
+} from "@constants/global.constants";
 import {
   getAuctionsByIds,
   getGarmentsByIds,
@@ -9,10 +12,9 @@ import {
   getAuctionsHistoryByIds,
   getAuctionContracts,
   getMaterialVS,
-  getCollectionGroups,
+  getCC0CollectionGroups,
   getDigitalaxGarmentNftV2GlobalStats,
-  getModelCollectionGroups,
-} from '@services/api/gql.queries.api.service';
+} from "@services/api/gql.queries.api.service";
 
 class APIService {
   constructor() {
@@ -52,21 +54,17 @@ class APIService {
   }
 
   async getEthRate() {
-    return fetch(`${config.EXCHANGE_API}/simple/price?ids=ethereum&vs_currencies=usd`).then(
-      (response) => response.json()
-    );
+    return fetch(
+      `${config.EXCHANGE_API}/simple/price?ids=ethereum&vs_currencies=usd`
+    ).then((response) => response.json());
   }
 
   async getMaterialVS() {
     return request(MATIC_NETWORK_URL, getMaterialVS);
   }
 
-  async getCollectionGroups() {
-    return request(MATIC_NETWORK_URL, getCollectionGroups);
-  }
-
-  async getModelCollectionGroups() {
-    return request(MATIC_NETWORK_URL, getModelCollectionGroups);
+  async getCC0CollectionGroups() {
+    return request(MATIC_NETWORK_URL, getCC0CollectionGroups);
   }
 }
 

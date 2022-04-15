@@ -1,78 +1,78 @@
-import BaseActions from '@actions/base-actions'
-import api from '@services/api/espa/api.service'
-import { mapImmuatableDataById } from '@helpers/map.helpers'
-import { getUser, getAuthToken } from '@helpers/user.helpers'
-import reducer from '../reducers/designer.reducer'
+import BaseActions from "@actions/base-actions";
+import api from "@services/api/espa/api.service";
+import { mapImmuatableDataById } from "@helpers/map.helpers";
+import { getUser, getAuthToken } from "@helpers/user.helpers";
+import reducer from "../reducers/designer.reducer";
 
 class DesignerActions extends BaseActions {
-
   mapData(designers) {
     return async (dispatch, getState) => {
-      const state = getState()
-      let designersById = state.designer.get('designersById')
-      designersById = mapImmuatableDataById(designers, designersById)
-      dispatch(this.setValue('designersById', designersById))
-    }
+      const state = getState();
+      let designersById = state.designer.get("designersById");
+      designersById = mapImmuatableDataById(designers, designersById);
+      dispatch(this.setValue("designersById", designersById));
+    };
   }
 
-  setCurrentDesignerInfo(designer) {
+  setCurrentResidentInfo(designer) {
     return async (dispatch) => {
-      dispatch(this.setValue('designerInfo', designer))
-    }
+      dispatch(this.setValue("residentInfo", designer));
+    };
   }
 
-  updateProfile(designer) {
+  updateProfile(resident) {
     return async (dispatch) => {
       try {
-        const user = getUser()
-        const newDesigner = {
-          ...designer,
+        const user = getUser();
+        const newResident = {
+          ...resident,
           wallet: user.wallet,
-          randomString: user.randomString
-        }
+          randomString: user.randomString,
+        };
 
-        dispatch(this.setValue('isLoading', true))
-        const data = await api.registerDesigner(newDesigner)
+        dispatch(this.setValue("isLoading", true));
+        const data = await api.registerResident(newResident);
         if (data) {
-          dispatch(this.setValue('designerInfo', designer))
-          toast('Designer Info is updated')
+          dispatch(this.setValue("residentInfo", resident));
+          toast("Designer Info is updated");
         } else {
         }
       } catch (e) {}
-      dispatch(this.setValue('isLoading', false))
-    }
+      dispatch(this.setValue("isLoading", false));
+    };
   }
 
   uploadAvatar(file) {
     return async (dispatch, getState) => {
-      const state = getState()
+      const state = getState();
       try {
-        dispatch(this.setValue('isLoading', true))
-        let url = await api.getPresignedUrl()
+        dispatch(this.setValue("isLoading", true));
+        let url = await api.getPresignedUrl();
         if (url) {
-          const result = await api.uploadImageToS3(url, file)
+          const result = await api.uploadImageToS3(url, file);
           if (result) {
-            const designer = Object.fromEntries(state.designer
-              .get('designerInfo'))
-            const queryIndex = url.indexOf('?')
+            const designer = Object.fromEntries(
+              state.designer.get("residentInfo")
+            );
+            const queryIndex = url.indexOf("?");
             if (queryIndex >= 0) {
-              url = url.slice(0, queryIndex)
+              url = url.slice(0, queryIndex);
             }
-            designer.image_url = url
+            designer.image_url = url;
 
-            dispatch(this.updateProfile(designer))
+            dispatch(this.updateProfile(designer));
           }
         }
       } catch (e) {}
-      dispatch(this.setValue('isLoading', false))
-    }
+      dispatch(this.setValue("isLoading", false));
+    };
   }
 
   setIsloading(loading) {
     return async (dispatch) => {
-      dispatch(this.setValue('isLoading', loading))
-    }
+      dispatch(this.setValue("isLoading", loading));
+    };
   }
 }
 
-export default new DesignerActions(reducer)
+export default new DesignerActions(reducer);

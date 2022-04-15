@@ -7,7 +7,7 @@ const CreativeResidents = () => {
   const [residents, setResidents] = useState([]);
   const fetchResidents = async () => {
     const res = await apiService.getAllResidents();
-    setResidents(res.filter((resident) => resident.GDNPurveyor));
+    setResidents(res);
   };
 
   useEffect(() => {
@@ -21,14 +21,14 @@ const CreativeResidents = () => {
         <div className={styles.desigersSection}>
           {residents.map((resident) => (
             <div className={styles.designer} key={resident.wallet}>
-              <Link href={`/residents/${resident.designerId}`}>
+              <Link href={`/residents/${resident.residentId}`}>
                 <a>
                   <img src={resident.image_url} className={styles.avatar} />
                 </a>
               </Link>
-              <Link href={`/residents/${resident.designerId}`}>
+              <Link href={`/residents/${resident.residentId}`}>
                 <a>
-                  <div className={styles.name}>{resident.designerId}</div>
+                  <div className={styles.name}>{resident.residentId}</div>
                 </a>
               </Link>
             </div>

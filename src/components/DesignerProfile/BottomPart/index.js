@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import Moveable from 'react-moveable';
-import Selecto from 'react-selecto';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import Moveable from "react-moveable";
+import Selecto from "react-selecto";
+import { toast } from "react-toastify";
 
-import api from '@services/api/espa/api.service';
-import designerActions from '@actions/designer.actions';
+import api from "@services/api/espa/api.service";
+import designerActions from "@actions/designer.actions";
 
-import Button from '@components/Button';
-import ChooseFont from '../ChooseFont';
-import styles from './styles.module.scss';
+import Button from "@components/Button";
+import ChooseFont from "../ChooseFont";
+import styles from "./styles.module.scss";
 
 const BottomPart = (props) => {
-  const { designerInfo, isEditable } = props;
+  const { residentInfo, isEditable } = props;
 
   const [selectedTarget, setSelectedTarget] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -21,10 +21,10 @@ const BottomPart = (props) => {
   const [isShowImageAdd, setIsShowImageAdd] = useState(false);
   const [isShowVideoAdd, setIsShowVideoAdd] = useState(false);
   const [isShowEmbededVideoAdd, setIsShowEmbededVideoAdd] = useState(false);
-  const [imageFileName, setImageFileName] = useState('');
-  const [videoFileName, setVideoFileName] = useState('');
-  const [embededVideoFileName, setEmbededVideoFileName] = useState('');
-  const [addTextDraft, setAddTextDraft] = useState('');
+  const [imageFileName, setImageFileName] = useState("");
+  const [videoFileName, setVideoFileName] = useState("");
+  const [embededVideoFileName, setEmbededVideoFileName] = useState("");
+  const [addTextDraft, setAddTextDraft] = useState("");
   const [isTextEdit, setIsTextEdit] = useState(false);
   const [scale, setScale] = useState(1);
   const [wrapperHeight, setWrapperHeight] = useState(800);
@@ -46,22 +46,22 @@ const BottomPart = (props) => {
   }
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return (_) => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   });
 
   useEffect(() => {
     try {
-      const web3Items = JSON.parse(designerInfo['web3FashionItems']);
+      const web3Items = JSON.parse(residentInfo["web3FashionItems"]);
       setWeb3FashionItems(web3Items);
       handleResize();
     } catch (e) {}
-  }, [designerInfo['web3FashionItems']]);
+  }, [residentInfo["web3FashionItems"]]);
 
   const Removable = {
-    name: 'removable',
+    name: "removable",
     props: {},
     events: {},
     render(moveable, React) {
@@ -70,7 +70,7 @@ const BottomPart = (props) => {
 
       // use css for able
       const RemovableViewer = moveable.useCSS(
-        'div',
+        "div",
         `
       {
         position: absolute;
@@ -135,7 +135,7 @@ const BottomPart = (props) => {
       const isText =
         selectedIndex.length > 0 &&
         web3FashionItems[selectedIndex[0]] &&
-        web3FashionItems[selectedIndex[0]].type === 'text';
+        web3FashionItems[selectedIndex[0]].type === "text";
       const isGroup = selectedIndex.length > 1;
 
       // Add key (required)
@@ -143,10 +143,10 @@ const BottomPart = (props) => {
       return (
         <RemovableViewer
           key="removable-viewer"
-          className={'moveable-removable'}
+          className={"moveable-removable"}
           style={{
             transform: `translate(${pos2[0]}px, ${pos2[1]}px) rotate(${rect.rotation}deg) translate(10px)`,
-            color: 'red',
+            color: "red",
           }}
         >
           <button
@@ -155,7 +155,10 @@ const BottomPart = (props) => {
               const newWeb3FashionItems = [];
 
               web3FashionItems.forEach((item, index) => {
-                if (selectedIndex.findIndex((selected) => selected == index) === -1) {
+                if (
+                  selectedIndex.findIndex((selected) => selected == index) ===
+                  -1
+                ) {
                   newWeb3FashionItems.push(item);
                 }
               });
@@ -178,11 +181,17 @@ const BottomPart = (props) => {
             <button
               className="clone-button"
               onClick={() => {
-                const newItem = Object.assign({}, web3FashionItems[selectedIndex[0]]);
+                const newItem = Object.assign(
+                  {},
+                  web3FashionItems[selectedIndex[0]]
+                );
                 const regex = /translate\([^)]+\)/g;
                 newItem.style = {
                   ...newItem.style,
-                  transform: newItem.style.transform.replace(regex, `translate(0, 0)`),
+                  transform: newItem.style.transform.replace(
+                    regex,
+                    `translate(0, 0)`
+                  ),
                 };
                 web3FashionItems.splice(selectedIndex[0] + 1, 0, newItem);
 
@@ -197,14 +206,17 @@ const BottomPart = (props) => {
   };
 
   const onClickTarget = (target, index) => {
-    if (target.parentElement.classList && target.parentElement.classList.contains('target')) {
+    if (
+      target.parentElement.classList &&
+      target.parentElement.classList.contains("target")
+    ) {
       setSelectedTarget([target.parentElement]);
       setSelectedIndex([index]);
       setIsTextEdit(false);
       return;
     }
 
-    if (!target.classList || !target.classList.contains('target')) return;
+    if (!target.classList || !target.classList.contains("target")) return;
 
     setSelectedTarget([target]);
     setSelectedIndex([index]);
@@ -255,7 +267,7 @@ const BottomPart = (props) => {
       if (url) {
         const result = await api.uploadImageToS3(url, file);
         if (result) {
-          const queryIndex = url.indexOf('?');
+          const queryIndex = url.indexOf("?");
           if (queryIndex >= 0) {
             url = url.slice(0, queryIndex);
           }
@@ -273,19 +285,19 @@ const BottomPart = (props) => {
 
   const onClickAddText = () => {
     // validation
-    const arrRemoveSpaces = addTextDraft.split(' ');
-    if (arrRemoveSpaces.findIndex((item) => item !== '') === -1) {
-      document.getElementById('text-add-item').focus();
-      setAddTextDraft('');
-      toast('Please input some text.');
+    const arrRemoveSpaces = addTextDraft.split(" ");
+    if (arrRemoveSpaces.findIndex((item) => item !== "") === -1) {
+      document.getElementById("text-add-item").focus();
+      setAddTextDraft("");
+      toast("Please input some text.");
       return;
     }
 
-    const itemStyle = document.getElementById('text-add-item').style;
+    const itemStyle = document.getElementById("text-add-item").style;
 
     web3FashionItems.push({
-      type: 'text',
-      value: addTextDraft.replace(/\r\n|\r|\n/g, '<br />'),
+      type: "text",
+      value: addTextDraft.replace(/\r\n|\r|\n/g, "<br />"),
       style: {
         fontFamily: itemStyle.fontFamily,
         fontSize: itemStyle.fontSize,
@@ -296,93 +308,93 @@ const BottomPart = (props) => {
     setWeb3FashionItems(web3FashionItems);
 
     // Reset Add Text
-    setAddTextDraft('');
+    setAddTextDraft("");
   };
 
   const onClickAddImage = () => {
     // validation
-    if (imageFileName === '') {
-      toast('Please choose an image file.');
+    if (imageFileName === "") {
+      toast("Please choose an image file.");
       return;
     }
 
-    const imageUploadEl = document.getElementById('image-upload');
+    const imageUploadEl = document.getElementById("image-upload");
 
     uploadFile(imageUploadEl.files[0])
       .then((uploaded) => {
         if (!uploaded) {
-          toast('Failed to upload the file. Please try again.');
+          toast("Failed to upload the file. Please try again.");
           return;
         }
 
         web3FashionItems.push({
-          type: 'image',
+          type: "image",
           value: uploaded,
         });
 
         setWeb3FashionItems(web3FashionItems);
 
         // Reset Add Image
-        imageUploadEl.value = '';
-        setImageFileName('');
+        imageUploadEl.value = "";
+        setImageFileName("");
       })
       .catch((e) => {
-        console.log('e: ', e);
-        toast('Failed to upload the file. Please try again.');
+        console.log("e: ", e);
+        toast("Failed to upload the file. Please try again.");
         return;
       });
   };
 
   const onClickAddVideo = () => {
     // validation
-    if (videoFileName === '') {
-      toast('Please choose a video file.');
+    if (videoFileName === "") {
+      toast("Please choose a video file.");
       return;
     }
 
-    const videoUploadEl = document.getElementById('video-upload');
+    const videoUploadEl = document.getElementById("video-upload");
 
     uploadFile(videoUploadEl.files[0])
       .then((uploaded) => {
         if (!uploaded) {
-          toast('Failed to upload the file. Please try again.');
+          toast("Failed to upload the file. Please try again.");
           return;
         }
 
         web3FashionItems.push({
-          type: 'video',
+          type: "video",
           value: uploaded,
         });
 
         setWeb3FashionItems(web3FashionItems);
 
         // Reset Add Video
-        videoUploadEl.value = '';
-        setVideoFileName('');
+        videoUploadEl.value = "";
+        setVideoFileName("");
       })
       .catch((e) => {
-        console.log('e: ', e);
-        toast('Failed to upload the file. Please try again.');
+        console.log("e: ", e);
+        toast("Failed to upload the file. Please try again.");
         return;
       });
   };
 
   const onClickAddEmbededVideo = () => {
     // validation
-    if (embededVideoFileName === '') {
-      toast('Please choose a video file.');
+    if (embededVideoFileName === "") {
+      toast("Please choose a video file.");
       return;
     }
 
     web3FashionItems.push({
-      type: 'embeded',
+      type: "embeded",
       value: embededVideoFileName,
     });
 
     setWeb3FashionItems(web3FashionItems);
 
     // Reset Add Embeded Video
-    setEmbededVideoFileName('');
+    setEmbededVideoFileName("");
   };
 
   const onChangeImageFile = (e) => {
@@ -390,7 +402,7 @@ const BottomPart = (props) => {
     if (files.length === 0) {
       return;
     }
-    const pathItems = e.target.value.split('\\');
+    const pathItems = e.target.value.split("\\");
     setImageFileName(pathItems[pathItems.length - 1]);
   };
 
@@ -399,25 +411,25 @@ const BottomPart = (props) => {
     if (files.length === 0) {
       return;
     }
-    const pathItems = e.target.value.split('\\');
+    const pathItems = e.target.value.split("\\");
     setVideoFileName(pathItems[pathItems.length - 1]);
   };
 
   const openImageFile = () => {
-    document.getElementById('image-upload').click();
+    document.getElementById("image-upload").click();
   };
 
   const openVideoFile = () => {
-    document.getElementById('video-upload').click();
+    document.getElementById("video-upload").click();
   };
 
   const onClickReset = () => {
-    setWeb3FashionItems(JSON.parse(designerInfo['web3FashionItems']));
+    setWeb3FashionItems(JSON.parse(residentInfo["web3FashionItems"]));
   };
 
   const onClickSave = () => {
-    designerInfo['web3FashionItems'] = JSON.stringify(web3FashionItems);
-    dispatch(designerActions.updateProfile({ ...designerInfo }));
+    residentInfo["web3FashionItems"] = JSON.stringify(web3FashionItems);
+    dispatch(designerActions.updateProfile({ ...residentInfo }));
   };
 
   const getMaxYValue = () => {
@@ -425,7 +437,9 @@ const BottomPart = (props) => {
     const yValues = web3FashionItems.map((item, index) => {
       const el = document.getElementById(`web3-fashion-item-${index}`);
       return el && elWrapper
-        ? (el.getBoundingClientRect().bottom - elWrapper.getBoundingClientRect().top) / scale
+        ? (el.getBoundingClientRect().bottom -
+            elWrapper.getBoundingClientRect().top) /
+            scale
         : 0;
     });
     return Math.max(...yValues, 400);
@@ -441,13 +455,13 @@ const BottomPart = (props) => {
     var sel = window.getSelection(); // Gets selection
     if (sel.rangeCount) {
       // Creates a new element, and insert the selected text with the chosen font inside
-      var e = document.createElement('span');
+      var e = document.createElement("span");
       if (fontName) {
-        e.style = 'font-family:' + fontName + ';';
+        e.style = "font-family:" + fontName + ";";
       }
 
       if (fontSize) {
-        e.style += 'font-size:' + fontSize + ';';
+        e.style += "font-size:" + fontSize + ";";
       }
 
       e.innerHTML = sel.toString();
@@ -472,14 +486,19 @@ const BottomPart = (props) => {
     <div
       className={[
         styles.wrapper,
-        web3FashionItems.length > 0 || isEditable ? styles.showBackground : '',
-      ].join(' ')}
+        web3FashionItems.length > 0 || isEditable ? styles.showBackground : "",
+      ].join(" ")}
     >
       {(web3FashionItems.length > 0 || isEditable) && (
-        <img src="/images/designer-page/triangle2.png" className={styles.triangle2} />
+        <img
+          src="/images/designer-page/triangle2.png"
+          className={styles.triangle2}
+        />
       )}
       {(isEditable || web3FashionItems.length > 0) && (
-        <h1 className={isEditable ? '' : styles.marginBottom}>Web3 Fashion 101</h1>
+        <h1 className={isEditable ? "" : styles.marginBottom}>
+          Web3 Fashion 101
+        </h1>
       )}
       {isEditable && (
         <div className={styles.toolbar}>
@@ -503,7 +522,7 @@ const BottomPart = (props) => {
               <textarea
                 id="text-add-item"
                 value={addTextDraft}
-                style={{ fontFamily: 'Poppins' }}
+                style={{ fontFamily: "Poppins" }}
                 onChange={(e) => setAddTextDraft(e.target.value)}
                 onFocus={onFocusText}
               />
@@ -522,11 +541,17 @@ const BottomPart = (props) => {
                 hidden
                 accept=".jpg, .png, .gif"
               />
-              <Button className={styles.uploadButton} background="black" onClick={openImageFile}>
+              <Button
+                className={styles.uploadButton}
+                background="black"
+                onClick={openImageFile}
+              >
                 FILE UPLOAD
               </Button>
               <div className={styles.fileName}>
-                {imageFileName && imageFileName !== '' ? imageFileName : 'No file chosen'}
+                {imageFileName && imageFileName !== ""
+                  ? imageFileName
+                  : "No file chosen"}
               </div>
               <Button className={styles.addButton} onClick={onClickAddImage}>
                 ADD
@@ -543,11 +568,17 @@ const BottomPart = (props) => {
                 hidden
                 accept=".mp4, .mov"
               />
-              <Button className={styles.uploadButton} background="black" onClick={openVideoFile}>
+              <Button
+                className={styles.uploadButton}
+                background="black"
+                onClick={openVideoFile}
+              >
                 FILE UPLOAD
               </Button>
               <div className={styles.fileName}>
-                {videoFileName && videoFileName !== '' ? videoFileName : 'No file chosen'}
+                {videoFileName && videoFileName !== ""
+                  ? videoFileName
+                  : "No file chosen"}
               </div>
               <Button className={styles.addButton} onClick={onClickAddVideo}>
                 ADD
@@ -564,7 +595,10 @@ const BottomPart = (props) => {
                 value={embededVideoFileName}
                 onChange={(e) => setEmbededVideoFileName(e.target.value)}
               />
-              <Button className={styles.addButton} onClick={onClickAddEmbededVideo}>
+              <Button
+                className={styles.addButton}
+                onClick={onClickAddEmbededVideo}
+              >
                 ADD
               </Button>
             </div>
@@ -572,12 +606,12 @@ const BottomPart = (props) => {
         </div>
       )}
       <div
-        className={[styles.web3FashionView, 'web3-fashion-wrapper'].join(' ')}
+        className={[styles.web3FashionView, "web3-fashion-wrapper"].join(" ")}
         id="web3-fashion-wrapper"
         style={{
           width: 1920,
           height: wrapperHeight,
-          transformOrigin: '0 0',
+          transformOrigin: "0 0",
           transform: `scale(${scale})`,
         }}
       >
@@ -595,7 +629,7 @@ const BottomPart = (props) => {
               removable: true,
             }}
             origin={true}
-            defaultGroupOrigin={'50% 50%'}
+            defaultGroupOrigin={"50% 50%"}
             draggable={true}
             onDrag={({
               target,
@@ -638,7 +672,9 @@ const BottomPart = (props) => {
             }}
             onDragGroupEnd={(e) => {
               e.targets.forEach((target) => {
-                const itemId = parseInt(target.id.replace('web3-fashion-item-', ''));
+                const itemId = parseInt(
+                  target.id.replace("web3-fashion-item-", "")
+                );
                 web3FashionItems[itemId].style = {
                   width: target.style.width,
                   height: target.style.height,
@@ -660,7 +696,9 @@ const BottomPart = (props) => {
             }}
             onRotateGroupEnd={(e) => {
               e.targets.forEach((target) => {
-                const itemId = parseInt(target.id.replace('web3-fashion-item-', ''));
+                const itemId = parseInt(
+                  target.id.replace("web3-fashion-item-", "")
+                );
                 web3FashionItems[itemId].style = {
                   width: target.style.width,
                   height: target.style.height,
@@ -672,10 +710,19 @@ const BottomPart = (props) => {
               });
             }}
             resizable={true}
-            renderDirections={['nw', 'n', 'ne', 'w', 'e', 'sw', 's', 'se']}
+            renderDirections={["nw", "n", "ne", "w", "e", "sw", "s", "se"]}
             throttleResize={0}
             onResizeStart={({ target, clientX, clientY }) => {}}
-            onResize={({ target, width, height, dist, delta, direction, clientX, clientY }) => {
+            onResize={({
+              target,
+              width,
+              height,
+              dist,
+              delta,
+              direction,
+              clientX,
+              clientY,
+            }) => {
               delta[0] && (target.style.width = `${width}px`);
               delta[1] && (target.style.height = `${height}px`);
             }}
@@ -691,14 +738,23 @@ const BottomPart = (props) => {
               };
               setWeb3FashionItems([...web3FashionItems]);
               onClickTarget(
-                document.getElementById(`web3-fashion-item-${selectedIndex[0]}`),
+                document.getElementById(
+                  `web3-fashion-item-${selectedIndex[0]}`
+                ),
                 selectedIndex[0]
               );
             }}
             rotatable={true}
             throttleRotate={0}
             onRotateStart={(e) => {}}
-            onRotate={({ target, delta, dist, transform, clientX, clientY }) => {
+            onRotate={({
+              target,
+              delta,
+              dist,
+              transform,
+              clientX,
+              clientY,
+            }) => {
               target.style.transform = transform;
             }}
             onRotateEnd={({ target, isDrag, clientX, clientY }) => {
@@ -713,22 +769,24 @@ const BottomPart = (props) => {
               };
               setWeb3FashionItems([...web3FashionItems]);
               onClickTarget(
-                document.getElementById(`web3-fashion-item-${selectedIndex[0]}`),
+                document.getElementById(
+                  `web3-fashion-item-${selectedIndex[0]}`
+                ),
                 selectedIndex[0]
               );
             }}
           />
         )}
         {web3FashionItems.map((item, index) => {
-          if (item.type === 'text') {
+          if (item.type === "text") {
             return (
               <div
                 className={[
                   styles.target,
                   styles.text,
-                  'target',
-                  isEditable ? styles.showBorder : '',
-                ].join(' ')}
+                  "target",
+                  isEditable ? styles.showBorder : "",
+                ].join(" ")}
                 id={`web3-fashion-item-${index}`}
                 key={JSON.stringify(item) + index}
                 style={item.style || {}}
@@ -739,15 +797,15 @@ const BottomPart = (props) => {
                 dangerouslySetInnerHTML={{ __html: item.value }}
               ></div>
             );
-          } else if (item.type === 'image') {
+          } else if (item.type === "image") {
             return (
               <img
                 className={[
                   styles.target,
                   styles.image,
-                  'target',
-                  isEditable ? styles.showBorder : '',
-                ].join(' ')}
+                  "target",
+                  isEditable ? styles.showBorder : "",
+                ].join(" ")}
                 key={JSON.stringify(item) + index}
                 id={`web3-fashion-item-${index}`}
                 style={item.style || {}}
@@ -755,7 +813,7 @@ const BottomPart = (props) => {
                 src={item.value}
               />
             );
-          } else if (item.type === 'video') {
+          } else if (item.type === "video") {
             return (
               <video
                 autoPlay
@@ -766,9 +824,9 @@ const BottomPart = (props) => {
                 className={[
                   styles.target,
                   styles.video,
-                  'target',
-                  isEditable ? styles.showBorder : '',
-                ].join(' ')}
+                  "target",
+                  isEditable ? styles.showBorder : "",
+                ].join(" ")}
                 id={`web3-fashion-item-${index}`}
                 key={JSON.stringify(item) + index}
                 onClick={(e) => onClickTarget(e.target, index)}
@@ -776,7 +834,7 @@ const BottomPart = (props) => {
                 <source src={item.value} type="video/mp4" />
               </video>
             );
-          } else if (item.type === 'embeded') {
+          } else if (item.type === "embeded") {
             return (
               <div
                 style={item.style || {}}
@@ -785,16 +843,17 @@ const BottomPart = (props) => {
                 className={[
                   styles.target,
                   styles.embeded,
-                  'target',
-                  isEditable ? styles.showBorder : '',
-                ].join(' ')}
+                  "target",
+                  isEditable ? styles.showBorder : "",
+                ].join(" ")}
                 onClick={(e) => onClickTarget(e.target, index)}
               >
                 <iframe src={item.value}></iframe>
                 <div
-                  className={[isEditable ? styles.overlay : styles.hidden, 'target-overlay'].join(
-                    ' '
-                  )}
+                  className={[
+                    isEditable ? styles.overlay : styles.hidden,
+                    "target-overlay",
+                  ].join(" ")}
                 />
               </div>
             );
@@ -804,12 +863,12 @@ const BottomPart = (props) => {
       {isEditable && (
         <Selecto
           ref={selectoRef}
-          dragContainer={'.web3-fashion-wrapper'}
-          selectableTargets={['.target']}
+          dragContainer={".web3-fashion-wrapper"}
+          selectableTargets={[".target"]}
           hitRate={0}
           selectByClick={false}
           selectFromInside={false}
-          toggleContinueSelect={['shift']}
+          toggleContinueSelect={["shift"]}
           ratio={0}
           onDragStart={(e) => {
             const moveable = moveableRef.current;
@@ -817,9 +876,9 @@ const BottomPart = (props) => {
             if (
               moveable.isMoveableElement(target) ||
               selectedTarget.some((t) => t === target || t.contains(target)) ||
-              target.classList.contains('removable-button') ||
-              target.classList.contains('editable-button') ||
-              target.classList.contains('clone-button')
+              target.classList.contains("removable-button") ||
+              target.classList.contains("editable-button") ||
+              target.classList.contains("clone-button")
             ) {
               e.stop();
             }
@@ -833,7 +892,7 @@ const BottomPart = (props) => {
             }
 
             const selectedIds = e.selected.map((item) =>
-              parseInt(item.id.replace('web3-fashion-item-', ''))
+              parseInt(item.id.replace("web3-fashion-item-", ""))
             );
             if (selectedIds.length > 0 || selectedIndex.length > 1) {
               setSelectedIndex(selectedIds);
@@ -845,7 +904,12 @@ const BottomPart = (props) => {
           }}
         ></Selecto>
       )}
-      {showFont && <ChooseFont target={currentTargetForFont} onClosed={() => setShowFont(false)} />}
+      {showFont && (
+        <ChooseFont
+          target={currentTargetForFont}
+          onClosed={() => setShowFont(false)}
+        />
+      )}
     </div>
   );
 };

@@ -187,18 +187,9 @@ class EspaApiService {
     }
   }
 
-  async getDesignerByWallet(wallet) {
+  async getResidentByWallet(wallet) {
     try {
-      const designers = await get("/get-designer-by-wallet", { wallet });
-      return designers;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  async getDesignerById(designerId) {
-    try {
-      const designers = await get("/get-designer-by-id", { designerId });
+      const designers = await get("/get-resident-by-wallet", { wallet });
       return designers;
     } catch (e) {
       return null;
@@ -250,14 +241,14 @@ class EspaApiService {
     }
   }
 
-  async registerDesigner({
+  async registerResident({
     wallet,
     randomString,
-    designerId,
+    residentId,
     description,
     external_url,
     image_url,
-    newDesignerID,
+    newResidentID,
     twitter,
     instagram,
     linkedin,
@@ -266,14 +257,14 @@ class EspaApiService {
     web3FashionItems,
   }) {
     try {
-      const message = await post("/register-designer", {
+      const message = await post("/register-resident", {
         wallet,
         randomString,
-        designerId,
+        residentId,
         description,
         external_url,
         image_url,
-        newDesignerID,
+        newResidentID,
         twitter,
         instagram,
         linkedin,
@@ -287,10 +278,10 @@ class EspaApiService {
     }
   }
 
-  async registerOnChainFashionItem({
+  async registerOnChainCC0Item({
     wallet,
     randomString,
-    designerId,
+    residentId,
     itemName,
     description,
     rarity,
@@ -304,10 +295,10 @@ class EspaApiService {
     attachFGO,
   }) {
     try {
-      const message = await post("/register-on-chain-fashion-item", {
+      const message = await post("/register-on-chain-cc0-item", {
         wallet,
         randomString,
-        designerId,
+        residentId,
         itemName,
         description,
         rarity,

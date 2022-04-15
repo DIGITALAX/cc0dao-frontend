@@ -12,7 +12,7 @@ import styles from "./styles.module.scss";
 const MAX_DESCRIPTION_LENGTH = 672;
 
 const ResidentProfileTopPart = (props) => {
-  const { isEdit, designerInfo, marketplaceItems } = props;
+  const { isEdit, residentInfo, marketplaceItems } = props;
 
   const [avatarUrl, setAvatarUrl] = useState("");
   const [isEditingAvatar, setIsEditingAvatar] = useState(false);
@@ -29,33 +29,33 @@ const ResidentProfileTopPart = (props) => {
 
   useEffect(() => {
     console.log("--here");
-    setAvatarUrl(designerInfo["image_url"]);
-  }, [designerInfo["image_url"]]);
+    setAvatarUrl(residentInfo["image_url"]);
+  }, [residentInfo["image_url"]]);
 
   useEffect(() => {
-    setTwitterDraft(designerInfo["twitter"]);
-    console.log("twitter: ", designerInfo["twitter"]);
-  }, [designerInfo["twitter"]]);
+    setTwitterDraft(residentInfo["twitter"]);
+    console.log("twitter: ", residentInfo["twitter"]);
+  }, [residentInfo["twitter"]]);
 
   useEffect(() => {
-    setInstagramDraft(designerInfo["instagram"]);
-  }, [designerInfo["instagram"]]);
+    setInstagramDraft(residentInfo["instagram"]);
+  }, [residentInfo["instagram"]]);
 
   useEffect(() => {
-    setMirrorDraft(designerInfo["ThreadMirror"]);
-  }, [designerInfo["ThreadMirror"]]);
+    setMirrorDraft(residentInfo["ThreadMirror"]);
+  }, [residentInfo["ThreadMirror"]]);
 
   useEffect(() => {
-    setLinkedinDraft(designerInfo["linkedin"]);
-  }, [designerInfo["linkedin"]]);
+    setLinkedinDraft(residentInfo["linkedin"]);
+  }, [residentInfo["linkedin"]]);
 
   useEffect(() => {
-    setYoutubeDraft(designerInfo["youtube"]);
-  }, [designerInfo["youtube"]]);
+    setYoutubeDraft(residentInfo["youtube"]);
+  }, [residentInfo["youtube"]]);
 
   useEffect(() => {
-    setTiktokDraft(designerInfo["tiktok"]);
-  }, [designerInfo["tiktok"]]);
+    setTiktokDraft(residentInfo["tiktok"]);
+  }, [residentInfo["tiktok"]]);
 
   // Mod Avatar
   const showBrowserForAvatar = () => {
@@ -64,7 +64,7 @@ const ResidentProfileTopPart = (props) => {
 
   const cancelModAvatar = () => {
     setIsEditingAvatar(false);
-    setAvatarUrl(designerInfo["image_url"]);
+    setAvatarUrl(residentInfo["image_url"]);
     document.getElementById("avatar-upload").value = "";
   };
 
@@ -92,13 +92,13 @@ const ResidentProfileTopPart = (props) => {
 
   // Mod Description
   const showEditDescription = () => {
-    setDescriptionDraft(designerInfo["description"]);
+    setDescriptionDraft(residentInfo["description"]);
     setIsEditingDescription(true);
   };
 
   const saveModDescription = () => {
-    designerInfo["description"] = descriptionDraft;
-    dispatch(designerActions.updateProfile(designerInfo));
+    residentInfo["description"] = descriptionDraft;
+    dispatch(designerActions.updateProfile(residentInfo));
     setIsEditingDescription(false);
   };
 
@@ -117,26 +117,26 @@ const ResidentProfileTopPart = (props) => {
 
   // Social
   const saveSocialLinks = () => {
-    designerInfo["twitter"] = twitterDraft.includes("twitter.com")
+    residentInfo["twitter"] = twitterDraft.includes("twitter.com")
       ? twitterDraft
       : `https://twitter.com/${twitterDraft}`;
-    designerInfo["instagram"] = instagramDraft.includes("https")
+    residentInfo["instagram"] = instagramDraft.includes("https")
       ? instagramDraft
       : `https://${instagramDraft}`;
-    designerInfo["linkedin"] = linkedinDraft.includes("https")
+    residentInfo["linkedin"] = linkedinDraft.includes("https")
       ? linkedinDraft
       : `https://${linkedinDraft}`;
-    designerInfo["youtube"] = youtubeDraft.includes("https")
+    residentInfo["youtube"] = youtubeDraft.includes("https")
       ? youtubeDraft
       : `https://${youtubeDraft}`;
-    designerInfo["tiktok"] = tiktokDraft.includes("https")
+    residentInfo["tiktok"] = tiktokDraft.includes("https")
       ? tiktokDraft
       : `https://${tiktokDraft}`;
-    designerInfo["ThreadMirror"] = mirrorDraft.includes("https")
+    residentInfo["ThreadMirror"] = mirrorDraft.includes("https")
       ? mirrorDraft
       : `https://${mirrorDraft}`;
 
-    dispatch(designerActions.updateProfile(designerInfo));
+    dispatch(designerActions.updateProfile(residentInfo));
   };
 
   return (
@@ -185,7 +185,7 @@ const ResidentProfileTopPart = (props) => {
           " "
         )}
       >
-        {designerInfo["designerId"].toUpperCase()}
+        {residentInfo["residentId"].toUpperCase()}
       </div>
 
       {isEdit && (
@@ -196,78 +196,78 @@ const ResidentProfileTopPart = (props) => {
 
       {!isEdit && (
         <div className={styles.socialIcons}>
-          {designerInfo["twitter"] && designerInfo["twitter"] !== "" && (
+          {residentInfo["twitter"] && residentInfo["twitter"] !== "" && (
             <a
               href={
-                designerInfo["twitter"].includes("https")
-                  ? designerInfo["twitter"]
-                  : `https://${designerInfo["twitter"]}`
+                residentInfo["twitter"].includes("https")
+                  ? residentInfo["twitter"]
+                  : `https://${residentInfo["twitter"]}`
               }
               target="_blank"
             >
               <img src="/images/social-button-circle/twitter.png" />
             </a>
           )}
-          {designerInfo["instagram"] && designerInfo["instagram"] !== "" && (
+          {residentInfo["instagram"] && residentInfo["instagram"] !== "" && (
             <a
               href={
-                designerInfo["instagram"].includes("https")
-                  ? designerInfo["instagram"]
-                  : `https://${designerInfo["instagram"]}`
+                residentInfo["instagram"].includes("https")
+                  ? residentInfo["instagram"]
+                  : `https://${residentInfo["instagram"]}`
               }
               target="_blank"
             >
               <img src="/images/social-button-circle/instagram.png" />
             </a>
           )}
-          {designerInfo["linkedin"] && designerInfo["linkedin"] !== "" && (
+          {residentInfo["linkedin"] && residentInfo["linkedin"] !== "" && (
             <a
               href={
-                designerInfo["linkedin"].includes("https")
-                  ? designerInfo["linkedin"]
-                  : `https://${designerInfo["linkedin"]}`
+                residentInfo["linkedin"].includes("https")
+                  ? residentInfo["linkedin"]
+                  : `https://${residentInfo["linkedin"]}`
               }
               target="_blank"
             >
               <img src="/images/social-button-circle/linkedin.png" />
             </a>
           )}
-          {designerInfo["tiktok"] && designerInfo["tiktok"] !== "" && (
+          {residentInfo["tiktok"] && residentInfo["tiktok"] !== "" && (
             <a
               href={
-                designerInfo["tiktok"].includes("https")
-                  ? designerInfo["tiktok"]
-                  : `https://${designerInfo["tiktok"]}`
+                residentInfo["tiktok"].includes("https")
+                  ? residentInfo["tiktok"]
+                  : `https://${residentInfo["tiktok"]}`
               }
               target="_blank"
             >
               <img src="/images/social-button-circle/tiktok.png" />
             </a>
           )}
-          {designerInfo["youtube"] && designerInfo["youtube"] !== "" && (
+          {residentInfo["youtube"] && residentInfo["youtube"] !== "" && (
             <a
               href={
-                designerInfo["youtube"].includes("https")
-                  ? designerInfo["youtube"]
-                  : `https://${designerInfo["youtube"]}`
+                residentInfo["youtube"].includes("https")
+                  ? residentInfo["youtube"]
+                  : `https://${residentInfo["youtube"]}`
               }
               target="_blank"
             >
               <img src="/images/social-button-circle/youtube.png" />
             </a>
           )}
-          {designerInfo["ThreadMirror"] && designerInfo["ThreadMirror"] !== "" && (
+          {/* {residentInfo["ThreadMirror"] && residentInfo["ThreadMirror"] !== "" && (
             <a
               href={
-                designerInfo["ThreadMirror"].includes("https")
-                  ? designerInfo["ThreadMirror"]
-                  : `https://${designerInfo["ThreadMirror"]}`
+                residentInfo["ThreadMirror"].includes("https")
+                  ? residentInfo["ThreadMirror"]
+                  : `https://${residentInfo["ThreadMirror"]}`
               }
               target="_blank"
             >
               <img src="/images/social-button-circle/mirror.png" />
             </a>
-          )}
+          )} */}
         </div>
       )}
 
@@ -313,14 +313,14 @@ const ResidentProfileTopPart = (props) => {
               onChange={(e) => setLinkedinDraft(e.target.value)}
             />
           </div>
-          <div className={styles.inputRow}>
+          {/* <div className={styles.inputRow}>
             <img src="/images/social-button-circle/mirror.png" />
             <input
               type="text"
               value={mirrorDraft}
               onChange={(e) => setMirrorDraft(e.target.value)}
             />
-          </div>
+          </div> */}
           <Button
             className={[styles.modSocialSave, styles.blueButton].join(" ")}
             onClick={() => saveSocialLinks()}
@@ -337,7 +337,7 @@ const ResidentProfileTopPart = (props) => {
             isEdit ? styles.editing : "",
           ].join(" ")}
         >
-          {designerInfo["description"].substring(0, MAX_DESCRIPTION_LENGTH)}
+          {residentInfo["description"].substring(0, MAX_DESCRIPTION_LENGTH)}
         </div>
       )}
       {isEdit && isEditingDescription && (
@@ -399,7 +399,7 @@ const ResidentProfileTopPart = (props) => {
       {isEdit && (
         <div className={styles.submitFormWrapper}>
           <h1>ON-CHAIN CC0</h1>
-          <OnChainFashionSubmitForm designerId={designerInfo["designerId"]} />
+          <OnChainFashionSubmitForm residentId={residentInfo["residentId"]} />
         </div>
       )}
       <div className={styles.bottomWrapper}>

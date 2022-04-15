@@ -40,8 +40,8 @@ function useWindowDimensions() {
 const HeaderTopLine = ({ className, buttonText }) => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isCollapse, setIsCollapse] = useState(false);
-  const [isDesigner, setIsDesigner] = useState(false);
-  const [designerInfo, setDesignerInfo] = useState(null);
+  const [isResident, setIsResident] = useState(false);
+  const [residentInfo, setResidentInfo] = useState(null);
 
   const screenWidth = useWindowDimensions().width;
   const [isMobile, setIsMobile] = useState(false);
@@ -51,11 +51,11 @@ const HeaderTopLine = ({ className, buttonText }) => {
   }, [screenWidth]);
 
   const checkIfDesigner = async (wallet) => {
-    const designers =
-      (await api.getDesignerByWallet(wallet?.toLowerCase())) || [];
-    if (designers.length > 0) {
-      setDesignerInfo(designers[0]);
-      setIsDesigner(true);
+    const residents =
+      (await api.getResidentByWallet(wallet?.toLowerCase())) || [];
+    if (residents.length > 0) {
+      setResidentInfo(residents[0]);
+      setIsResident(true);
     }
   };
 
@@ -94,14 +94,14 @@ const HeaderTopLine = ({ className, buttonText }) => {
     dispatch(accountActions.logout());
   };
 
-  const handleEditDesignerPageClick = () => {
+  const handleEditResidentPageClick = () => {
     setIsShowMenu(false);
-    Router.push("/edit-designer-profile");
+    Router.push("/edit-resident-profile");
   };
 
-  const handleViewDesignerPageClick = () => {
+  const handleViewResidentPageClick = () => {
     setIsShowMenu(false);
-    Router.push(`/designers/${designerInfo.designerId}`);
+    Router.push(`/residents/${residentInfo.residentId}`);
   };
 
   return (
@@ -114,7 +114,9 @@ const HeaderTopLine = ({ className, buttonText }) => {
       )}
     >
       <div className={styles.leftBox}>
-        <div className={styles.logo}>CC:0</div>
+        <Link href="/">
+          <div className={styles.logo}>CC:0</div>
+        </Link>
       </div>
       <div className={styles.rightBox}>
         <div
@@ -177,20 +179,20 @@ const HeaderTopLine = ({ className, buttonText }) => {
                     >
                       Profile
                     </button>
-                    {isDesigner && (
+                    {isResident && (
                       <button
-                        onClick={() => handleViewDesignerPageClick()}
+                        onClick={() => handleViewResidentPageClick()}
                         className={styles.menuButton}
                       >
-                        View Designer Page
+                        View Resident Page
                       </button>
                     )}
-                    {isDesigner && (
+                    {isResident && (
                       <button
-                        onClick={() => handleEditDesignerPageClick()}
+                        onClick={() => handleEditResidentPageClick()}
                         className={styles.menuButton}
                       >
-                        Edit Designer Page
+                        Edit Resident Page
                       </button>
                     )}
                     <button

@@ -1,4 +1,4 @@
-import { gql } from 'graphql-request';
+import { gql } from "graphql-request";
 
 export const getLiveAuctions = gql`
   {
@@ -147,48 +147,9 @@ export const getMaterialVS = gql`
   }
 `;
 
-export const getCollectionGroups = gql`
-  query digitalaxCollectionGroups {
-    digitalaxCollectionGroups(first: 100, skip: 2) {
-      id
-      auctions {
-        id
-        topBid
-        designer {
-          id
-          name
-          image
-        }
-        garment {
-          id
-          animation
-          image
-          name
-        }
-      }
-      collections {
-        id
-        rarity
-        garments(first: 1) {
-          id
-          animation
-          image
-          name
-        }
-        designer {
-          id
-          name
-          image
-        }
-        valueSold
-      }
-    }
-  }
-`;
-
-export const getModelCollectionGroups = gql`
-  query digitalaxModelCollectionGroups {
-    digitalaxModelCollectionGroups(first: 100) {
+export const getCC0CollectionGroups = gql`
+  query digitalaxCC0CollectionGroups {
+    digitalaxCC0CollectionGroups(first: 100) {
       id
       collections {
         id
@@ -199,12 +160,7 @@ export const getModelCollectionGroups = gql`
           image
           name
         }
-        model {
-          id
-          name
-          image
-        }
-        designer {
+        resident {
           id
           name
           image

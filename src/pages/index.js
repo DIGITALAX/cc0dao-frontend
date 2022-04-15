@@ -64,7 +64,7 @@ function Landing(props) {
 
         <div className={styles.section2}>
           <video autoPlay loop muted>
-            <srouce src="/video/BGVIDEO-MARKETPLACE.mp4" type="media/mp4" />
+            <source src="/video/1.mp4" type="video/mp4" />
           </video>
         </div>
 

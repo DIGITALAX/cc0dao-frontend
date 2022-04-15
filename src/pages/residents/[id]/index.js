@@ -37,126 +37,62 @@ const ResidentPage = () => {
     );
 
     setResidentInfo(resident);
-    const secondaryProducts = secondDesignerData.filter((data) =>
-      data.designer.find(
-        (designerItem) =>
-          designerItem.toLowerCase() === designer?.designerId?.toLowerCase() ||
-          (designer?.newDesignerID &&
-            designer.newDesignerID.toLowerCase() === designerItem.toLowerCase())
-      )
-    );
+    // const secondaryProducts = secondDesignerData.filter((data) =>
+    //   data.designer.find(
+    //     (designerItem) =>
+    //       designerItem.toLowerCase() === designer?.designerId?.toLowerCase() ||
+    //       (designer?.newDesignerID &&
+    //         designer.newDesignerID.toLowerCase() === designerItem.toLowerCase())
+    //   )
+    // );
 
-    const { digitalaxCollectionGroups } =
-      await APIService.getCollectionGroups();
-    const { digitalaxModelCollectionGroups } =
-      await APIService.getModelCollectionGroups();
-    // console.log('digitalaxCollectionGroups: ', digitalaxCollectionGroups)
+    const { digitalaxCC0CollectionGroups } =
+      await APIService.getCC0CollectionGroups();
+    // console.log('digitalaxCC0CollectionGroups: ', digitalaxCC0CollectionGroups)
     const auctionItems = [];
-    const secondaryAuctions = secondaryProducts.filter(
-      (item) => item.isAuction == 1
-    );
-    const secondaryCollections = secondaryProducts.filter(
-      (item) => item.isAuction == 0
-    );
-    digitalaxCollectionGroups.forEach((group) => {
-      if (
-        group?.auctions &&
-        !(group?.auctions?.length === 1 && group?.auctions[0].id === "0")
-      ) {
-        auctionItems.push(
-          ...group?.auctions
-            ?.filter((auctionItem) => {
-              return (
-                auctionItem.designer.name.toLowerCase() ===
-                  designer["designerId"].toLowerCase() ||
-                secondaryAuctions.find(
-                  (secondary) => secondary.id == auctionItem.id
-                )
-              );
-            })
-            .map((item) => {
-              // console.log('item: ', item)
+    // const secondaryAuctions = secondaryProducts.filter(
+    //   (item) => item.isAuction == 1
+    // );
+    // const secondaryCollections = secondaryProducts.filter(
+    //   (item) => item.isAuction == 0
+    // );
+    digitalaxCC0CollectionGroups.forEach((group) => {
+      // console.log('-- current designer: ', designer)
+      // if (
+      //   !(group.collections.length === 1 && group.collections[0].id === "0")
+      // ) {
+      group.collections
+        .filter((collectionItem) => {
+          //   console.log(`designer: ${collectionItem.designer.name.toLowerCase()},current: ${designer['newDesignerID'].toLowerCase()}, check: ${
+          //     collectionItem.designer.name.toLowerCase() == designer['newDesignerID'].toLowerCase()
+          // } `)
+          return (
+            collectionItem.resident?.name.toLowerCase() ===
+              resident["residentId"].toLowerCase() ||
+            (resident["newResidentID"] &&
+              resident["newResidentID"] !== "" &&
+              collectionItem.resident?.name.toLowerCase() ===
+                resident["newResidentID"].toLowerCase())
+            // secondaryCollections.find(
+            //   (secondary) =>
+            //     secondary.id == collectionItem.id &&
+            //     secondary.rarity == getRarityNumber(collectionItem.rarity)
+            // )
+          );
+        })
+        .forEach((item) => {
+          auctionItems.push(
+            ...item.garments.map((garment) => {
               return {
-                ...item.garment,
-                isAuction: 1,
+                ...garment,
+                rarity: getRarityNumber(item.rarity),
+                isAuction: 0,
+                id: item.id,
               };
             })
-        );
-      }
-      // console.log('-- current designer: ', designer)
-      if (
-        !(group.collections.length === 1 && group.collections[0].id === "0")
-      ) {
-        group.collections
-          .filter((collectionItem) => {
-            //   console.log(`designer: ${collectionItem.designer.name.toLowerCase()},current: ${designer['newDesignerID'].toLowerCase()}, check: ${
-            //     collectionItem.designer.name.toLowerCase() == designer['newDesignerID'].toLowerCase()
-            // } `)
-            return (
-              collectionItem.designer?.name.toLowerCase() ===
-                designer["designerId"].toLowerCase() ||
-              (designer["newDesignerID"] &&
-                designer["newDesignerID"] !== "" &&
-                collectionItem.designer.name.toLowerCase() ===
-                  designer["newDesignerID"].toLowerCase()) ||
-              secondaryCollections.find(
-                (secondary) =>
-                  secondary.id == collectionItem.id &&
-                  secondary.rarity == getRarityNumber(collectionItem.rarity)
-              )
-            );
-          })
-          .forEach((item) => {
-            auctionItems.push(
-              ...item.garments.map((garment) => {
-                return {
-                  ...garment,
-                  rarity: getRarityNumber(item.rarity),
-                  isAuction: 0,
-                  id: item.id,
-                };
-              })
-            );
-          });
-      }
-    });
-
-    digitalaxModelCollectionGroups.forEach((group) => {
-      // console.log('-- current designer: ', designer)
-      if (
-        !(group.collections.length === 1 && group.collections[0].id === "0")
-      ) {
-        group.collections
-          .filter((collectionItem) => {
-            console.log(`collectionItem: `, collectionItem);
-            return (
-              collectionItem.designer?.name.toLowerCase() ===
-                designer["designerId"].toLowerCase() ||
-              (designer["newDesignerID"] &&
-                designer["newDesignerID"] !== "" &&
-                collectionItem.designer?.name.toLowerCase() ===
-                  designer["newDesignerID"].toLowerCase()) ||
-              secondaryCollections.find(
-                (secondary) =>
-                  secondary.id == collectionItem.id &&
-                  secondary.rarity == getRarityNumber(collectionItem.rarity)
-              )
-            );
-          })
-          .forEach((item) => {
-            auctionItems.push(
-              ...item.garments.map((garment) => {
-                return {
-                  ...garment,
-                  isModel: true,
-                  rarity: getRarityNumber(item.rarity),
-                  isAuction: 0,
-                  id: item.id,
-                };
-              })
-            );
-          });
-      }
+          );
+        });
+      // }
     });
 
     setMarketplaceItems(auctionItems);
@@ -165,6 +101,8 @@ const ResidentPage = () => {
   useEffect(() => {
     loadData();
   }, []);
+
+  console.log({ marketplaceItems });
 
   if (!residentInfo) {
     return (
@@ -183,7 +121,7 @@ const ResidentPage = () => {
     <div className={styles.wrapper}>
       <ResidentProfileTopPart
         isEdit={false}
-        designerInfo={residentInfo}
+        residentInfo={residentInfo}
         marketplaceItems={marketplaceItems}
       />
     </div>
