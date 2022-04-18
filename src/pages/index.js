@@ -51,10 +51,9 @@ function Landing(props) {
               {" "}
               Bid in Daily Auctions{" "}
             </a>
-            <a href="" target="_blank" rel="noreferrer">
-              {" "}
-              Web3 CC0 Creative Residents{" "}
-            </a>
+            <Link href="/creative-residents">
+              <a> Web3 CC0 Creative Residents </a>
+            </Link>
             <a href="" target="_blank" rel="noreferrer">
               {" "}
               Join the DAO{" "}
