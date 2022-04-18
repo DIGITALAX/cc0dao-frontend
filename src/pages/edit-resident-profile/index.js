@@ -107,20 +107,14 @@ const EditDesignerProfile = () => {
     }
 
     setMarketplaceItems(auctionItems);
-    // console.log('auctionItems: ', auctionItems)
 
     const materials = [];
-    // console.log('digitalaxMaterialV2S: ', digitalaxMaterialV2S)
-    let noThumbnailData = [];
-    // console.log('designer id: ', residentInfo['Designer ID'])
     if (digitalaxMaterialV2S && resident && resident["residentId"]) {
       for (const item of digitalaxMaterialV2S) {
         if (item.attributes.length <= 0) continue;
         try {
           const res = await fetch(item.tokenUri);
-          // console.log('--- item res: ', res)
           const rdata = await res.json();
-          // console.log('--- item rdata: ', rdata)
           if (!rdata["image_url"] || !rdata[idLabel]) continue;
           if (
             resident["residentId"].toLowerCase() !==
@@ -146,7 +140,6 @@ const EditDesignerProfile = () => {
               residentId = resident["newResidentID"];
             }
 
-            // console.log('--rdata: ', rdata)
             if (
               materials.findIndex(
                 (item) => item.image === rdata["image_url"]
@@ -204,8 +197,6 @@ const EditDesignerProfile = () => {
     );
   }
 
-  // console.log('materialList: ', materialList)
-
   return (
     <div className={styles.wrapper}>
       {isLoading && <Loader white size="large" className={styles.loader} />}
@@ -215,10 +206,6 @@ const EditDesignerProfile = () => {
         materialList={materialList}
         marketplaceItems={marketplaceItems}
       />
-      {/* <DesignerProfileBottomPart
-        residentInfo={residentInfo}
-        isEditable={true}
-      /> */}
     </div>
   );
 };
